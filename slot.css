@@ -1,0 +1,26 @@
+body {
+    text-align: center;
+}
+table {
+    border: 5px solid blue;
+    margin: auto auto;
+}
+td {
+    width: 60px;
+    height: 60px;
+}
+.number {
+    font-size: 50px;
+}
+button {
+    width: 180px;
+}
+.number:hover {
+    color: red;
+}
+#msg {
+    margin: 10px auto;
+    color: orchid;
+    font-size: 25px;
+    font-style: italic;
+}
