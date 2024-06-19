@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <link rel="stylesheet" href="slot.css">
+    <script href="slot.js"></script>
 </head>
 <body>
     <h1>슬롯머신 게임</h1>
@@ -19,5 +20,102 @@
         </tr>
     </table>
     <div id="msg"></div>
+
+    <script>
+        let nums = document.getElementsByClassName("number");
+        let msg = document.getElementById("msg");
+        msg.innerHTML = "스핀을 누르세요~"
+        let timerId1;
+        let timerId2;
+        let timerId3;
+        let spinning;
+        
+        let status = [0, 0, 0];
+
+        let btn = document.getElementById("spin");
+
+        
+
+        for (let i=0; i<nums.length; i++) {
+            nums[i].innerHTML = Math.floor(Math.random()*10);
+        }
+
+        btn.onclick = start;
+
+        function start() {
+    
+            spinning = [false, false, false];
+
+            for (let i=0; i<3; i++) {
+                status[i] = Math.floor(Math.random()*6+10);
+            }
+            timerId1 = setInterval(changeNumber1, 60);
+            timerId2 = setInterval(changeNumber2, 60);
+            timerId3 = setInterval(changeNumber3, 60);
+
+
+            if (!spinning[0] && !spinning[1] && !spinning[2]) {
+                let num1 = nums[0].innerHTML;
+                let num2 = nums[1].innerHTML;
+                let num3 = nums[2].innerHTML;
+
+                if (num1 == num2 && num2 == num3) {
+                    msg.innerHTML = '축하드립니다';
+                }
+                else {
+                    msg.innerHTML = '재시도하세요';
+                }
+            }
+            else {
+                msg.innerHTML = "게임이 진행중입니다";
+            }
+        }
+
+        function changeNumber1() {
+            spinning[0] = true;
+            nums[0].innerHTML = Math.floor(Math.random()*10);
+            status[0] -= 0.2;
+
+            if (status[0] <= 0) {
+                clearInterval(timerId1);
+                spinning[0] = false;
+            }
+        }
+        function changeNumber2() {
+            spinning[1] = true;
+            nums[1].innerHTML = Math.floor(Math.random()*10);
+            status[1] -= 0.2;
+
+            if (status[1] <= 0) {
+                clearInterval(timerId2);
+                spinning[1] = false;
+            }
+        }
+        function changeNumber3() {
+            spinning[2] = true;
+            nums[2].innerHTML = Math.floor(Math.random()*10);
+            status[2] -= 0.2;
+
+            if (status[2] <= 0) {
+                clearInterval(timerId3);
+                spinning[2] = false;
+            }
+        }
+        nums[0].onclick = function() {
+            clearInterval(timerId1);
+            spinning[0] = false;
+        }
+        nums[1].onclick = function() {
+            clearInterval(timerId2);
+            spinning[1] = false;
+        }
+        nums[2].onclick = function() {
+            clearInterval(timerId3);
+            spinning[2] = false;
+        }
+
+        
+
+    </script>
 </body>
 </html>
